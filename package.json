@@ -10,7 +10,10 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --clear --transpile-only --ignore-watch node_modules ./src/app.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "generate": "yarn prisma generate",
+    "push": "yarn prisma db push",
+    "run": "yarn run dev"
   },
   "keywords": [],
   "author": "",
@@ -34,14 +37,29 @@
     "typescript-eslint": "^7.13.1"
   },
   "dependencies": {
+    "@prisma/client": "^5.16.1",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
+    "@types/nodemailer": "^6.4.15",
+    "@types/otp-generator": "^4.0.2",
+    "@types/typescript": "^2.0.0",
+    "@types/winston": "^2.4.4",
+    "bcrypt": "^5.1.1",
+    "chalk": "4.1.2",
     "compression": "^1.7.4",
     "dotenv": "^16.4.5",
     "env-var": "^7.5.0",
     "express": "^4.19.2",
     "express-rate-limit": "^7.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.14",
+    "otp-generator": "^4.0.1",
+    "prisma": "^5.16.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.13.0"
   }
 }

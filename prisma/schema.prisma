@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  user_id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  email             String    @unique
+  age               Int
+  password          String
+  role              role      @default(USER)
+  student           student?
+  code_otp          Int?
+  otpExpiredAt      DateTime?
+}
+
+model student {
+  student_id        String    @id @default(auto()) @map("_id") @db.ObjectId 
+  phone             String    @unique
+  cni               String 
+  picture           String 
+  address           String
+  registration_date DateTime
+  tutor             String
+  school            String
+  school_level      String
+  status            String
+  factures          String
+  user              user      @relation(fields: [user_id], references: [user_id])
+  user_id           String    @unique @db.ObjectId
+  project_id        String[]  @db.ObjectId
+  projects          project[] @relation(fields: [project_id], references: [project_id]) 
+}
+
+model certificate {
+ certificate_id    String     @id @default(auto()) @map("_id") @db.ObjectId
+ description       String?
+ date_issued       String
+ title             title
+}
+
+model project {
+  project_id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String
+  student_id       String[]   @db.ObjectId
+  students         student[]  @relation(fields: [student_id], references: [student_id])
+}
+
+enum title {
+  aws
+  google
+  azure
+}
+
+type otp {
+  code          Int
+  expired       Boolean
+  expired_at    DateTime
+}
+
+enum role {
+  ADMIN
+  SUPERADMIN
+  USER
+  STUDENT
+}
+
+// model student_project {
+//   id        String  @id @default(auto()) @map("_id") @db.ObjectId
+//   student   student @relation(fields: [studentId], references: [student_id])
+//   studentId String  @db.ObjectId
+//   project   project @relation(fields: [projectId], references: [project_id])
+//   projectId String  @db.ObjectId
+
+//   @@unique([studentId, projectId])
+// }
