@@ -19,10 +19,10 @@ model user {
   email             String    @unique
   age               Int
   password          String
-  role              role      @default(USER)
   student           student?
   code_otp          Int?
   otpExpiredAt      DateTime?
+  role              role      @default(USER)
 }
 
 model student {
